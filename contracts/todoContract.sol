@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.28;
 
-/// @title TodoContract
-/// @notice Simple per-account todo list storage.
 contract TodoContract {
     error TodoContract__EmptyTask();
     error TodoContract__InvalidTaskId(uint256 taskId);

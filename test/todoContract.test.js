@@ -12,12 +12,8 @@ describe("TodoContract", function () {
 
   it("starts empty per account", async function () {
     const { todo, owner, other } = await deployFixture();
-    await expect(todo.getTaskCount(await owner.getAddress())).to.eventually.equal(
-      0n,
-    );
-    await expect(todo.getTaskCount(await other.getAddress())).to.eventually.equal(
-      0n,
-    );
+    expect(await todo.getTaskCount(await owner.getAddress())).to.equal(0n);
+    expect(await todo.getTaskCount(await other.getAddress())).to.equal(0n);
   });
 
   it("adds tasks, emits event, and reads back", async function () {
@@ -51,13 +47,19 @@ describe("TodoContract", function () {
     const { todo, owner } = await deployFixture();
     await todo.addTask("a");
 
-    const [, , , updatedAtBefore] = await todo.getTask(await owner.getAddress(), 0);
+    const [, , , updatedAtBefore] = await todo.getTask(
+      await owner.getAddress(),
+      0n,
+    );
 
     await expect(todo.updateTaskText(0, "b"))
       .to.emit(todo, "TaskTextUpdated")
-      .withArgs(await owner.getAddress(), 0, "b");
+      .withArgs(await owner.getAddress(), 0n, "b");
 
-    const [text, , , updatedAtAfter] = await todo.getTask(await owner.getAddress(), 0);
+    const [text, , , updatedAtAfter] = await todo.getTask(
+      await owner.getAddress(),
+      0n,
+    );
     expect(text).to.equal("b");
     expect(updatedAtAfter).to.be.greaterThanOrEqual(updatedAtBefore);
   });
@@ -68,16 +70,16 @@ describe("TodoContract", function () {
 
     await expect(todo.setTaskCompleted(0, true))
       .to.emit(todo, "TaskCompletedUpdated")
-      .withArgs(await owner.getAddress(), 0, true);
+      .withArgs(await owner.getAddress(), 0n, true);
 
-    let [, completed] = await todo.getTask(await owner.getAddress(), 0);
+    let [, completed] = await todo.getTask(await owner.getAddress(), 0n);
     expect(completed).to.equal(true);
 
     await expect(todo.toggleTaskCompleted(0))
       .to.emit(todo, "TaskCompletedUpdated")
-      .withArgs(await owner.getAddress(), 0, false);
+      .withArgs(await owner.getAddress(), 0n, false);
 
-    [, completed] = await todo.getTask(await owner.getAddress(), 0);
+    [, completed] = await todo.getTask(await owner.getAddress(), 0n);
     expect(completed).to.equal(false);
   });
 
