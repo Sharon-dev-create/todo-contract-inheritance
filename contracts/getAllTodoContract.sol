@@ -1,14 +1,18 @@
-//SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.28;
 
-pragma solidity ^0.8.26;
+import {TodoContract} from "./todoContract.sol";
 
-import { Todo } from "./todoContract.sol"
+/// @title GetAllTodoContract
+/// @notice Helper that reads all tasks for a given owner from a TodoContract.
+contract GetAllTodoContract {
+    TodoContract public immutable todo;
 
-contract allTask{
-
-    
-    function getAllTasks() public view returns (string[] memory) {
-        return tasks;
+    constructor(TodoContract todo_) {
+        todo = todo_;
     }
-    
+
+    function getAllTasks(address owner) external view returns (TodoContract.Task[] memory) {
+        return todo.getTasks(owner);
+    }
 }
