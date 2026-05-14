@@ -3,21 +3,20 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "compile": "npx hardhat compile",
-    "test": "npx hardhat test",
-    "deploy:local": "npx hardhat run scripts/deploy.js",
-    "deploy:sepolia": "npx hardhat run scripts/deploy.js --network sepolia"
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:local": "hardhat run scripts/deploy.js",
+    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^7.0.0",
-    "hardhat": "^3.4.5"
+    "@nomicfoundation/hardhat-toolbox": "5.0.0",
+    "hardhat": "2.22.18"
   },
   "dependencies": {
     "dotenv": "^17.4.2"
-  },
-  "type": "module"
+  }
 }
