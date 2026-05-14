@@ -3,8 +3,8 @@ const { ethers } = require("hardhat");
 async function main() {
     const TodoContract = await ethers.getContractFactory("TodoContract");
     const todo = await TodoContract.deploy();
-    await todo.waitForDeployment();
-    console.log("TodoContract deployed to:", await todo.getAddress());
+    await todo.deployed();
+    console.log("TodoContract deployed to:", todo.address);
 }
 
 main().catch((err) => {

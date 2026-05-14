@@ -6,17 +6,17 @@ async function main() {
 
   const TodoContract = await ethers.getContractFactory("TodoContract");
   const todo = await TodoContract.deploy();
-  await todo.waitForDeployment();
+  await todo.deployed();
 
-  console.log("TodoContract:", await todo.getAddress());
+  console.log("TodoContract:", todo.address);
 
   if (process.env.DEPLOY_HELPER === "true") {
     const GetAllTodoContract = await ethers.getContractFactory(
       "GetAllTodoContract",
     );
-    const helper = await GetAllTodoContract.deploy(await todo.getAddress());
-    await helper.waitForDeployment();
-    console.log("GetAllTodoContract:", await helper.getAddress());
+    const helper = await GetAllTodoContract.deploy(todo.address);
+    await helper.deployed();
+    console.log("GetAllTodoContract:", helper.address);
   }
 }
 
